@@ -1,0 +1,17 @@
+{
+  "name": "ys-agent-service",
+  "version": "1.0.0",
+  "description": "ys-mutify agent service",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=dev node test/index.js -- --access=dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:yskit/ys-agent-service.git"
+  },
+  "dependencies": {
+    "delegates": "^1.0.0",
+    "koa-compose": "^4.0.0"
+  }
+}
