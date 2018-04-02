@@ -1,6 +1,6 @@
 {
   "name": "ys-agent-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ys-mutify agent service",
   "main": "index.js",
   "scripts": {

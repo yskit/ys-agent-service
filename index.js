@@ -22,6 +22,10 @@ module.exports = class AgentService extends EventEmitter {
     return this;
   }
 
+  close() {
+    this.status = false;
+  }
+
   callback() {
     const fn = compose(this.middleware);
 
@@ -30,9 +34,12 @@ module.exports = class AgentService extends EventEmitter {
     }
 
     const handleRequest = (req, res) => {
+      if (!this.status) return;
       const ctx = this.createContext(req, res);
       return this.handleRequest(ctx, fn);
     };
+
+    this.status = true;
 
     return handleRequest;
   }
