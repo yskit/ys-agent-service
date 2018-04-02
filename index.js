@@ -49,17 +49,17 @@ module.exports = class AgentService extends EventEmitter {
     const handleResponse = () => {
       if (ctx.to) {
         if (ctx.body !== undefined) {
-          return ctx.res.send(ctx.to, ctx.body);
+          return ctx.response.send(ctx.to, ctx.body);
         } else {
-          return ctx.res.send(ctx.to, {
+          return ctx.response.send(ctx.to, {
             error: '404 Not found'
           });
         }
       }
       if (ctx.body !== undefined) {
-        return ctx.res.reply(ctx.body);
+        return ctx.response.reply(ctx.body);
       } else {
-        return ctx.res.reply({
+        return ctx.response.reply({
           error: '404 Not found'
         });
       }
@@ -67,7 +67,7 @@ module.exports = class AgentService extends EventEmitter {
     return fnMiddleware(ctx).then(handleResponse).catch(onerror);
   }
 
-  createContext(agent, req, res) {
+  createContext(req, res) {
     const context = Object.create(this.context);
     const request = context.request = Object.create(this.request);
     const response = context.response = Object.create(this.response);
@@ -77,7 +77,7 @@ module.exports = class AgentService extends EventEmitter {
     request.ctx = response.ctx = context;
     request.response = response;
     response.request = request;
-    ctx.agent = request.agent = response.agent = this.agent;
+    context.agent = request.agent = response.agent = this.agent;
     return context;
   }
 
@@ -92,13 +92,13 @@ module.exports = class AgentService extends EventEmitter {
 
     if (ctx) {
       if (ctx.to) {
-        return ctx.res.send(ctx.to, {
+        return ctx.response.send(ctx.to, {
           status: 500,
           message: msg
         });
       }
   
-      ctx.res.reply({
+      ctx.response.reply({
         status: 500,
         message: msg
       });
